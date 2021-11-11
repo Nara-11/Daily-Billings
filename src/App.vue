@@ -1,18 +1,15 @@
 <template>
   <div id="app">
     <router-view/>
-    <div id="nav">
-      <router-link to="/charts">图表</router-link>
-      |
-      <router-link to="/billing">记账</router-link>
-      |
-      <router-link to="/settings">设置</router-link>
-    </div>
   </div>
 </template>
 
 <style lang="scss">
-
+*{
+ margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
