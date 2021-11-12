@@ -4,7 +4,7 @@
       <Icon name="charts"/>
       图表
     </router-link>
-    <router-link to="/billing" class="item" active-class="selected">
+    <router-link to="/addBilling" class="item" active-class="selected">
       <Icon name="billing"/>
       记账
     </router-link>

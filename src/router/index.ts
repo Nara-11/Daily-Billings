@@ -4,18 +4,26 @@ import Billing from '@/views/Billing.vue';
 import Charts from '@/views/Charts.vue';
 import Settings from '@/views/Settings.vue';
 import NotFound from '@/views/NotFound.vue';
+import AddBilling from '@/views/AddBilling.vue';
+import AddBilling2 from '@/views/AddBilling2.vue';
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    redirect:'/billing'
-  },
-  {
-    path: '/billing',
     name: 'Billing',
     component: Billing
+  },
+  {
+    path: '/addBilling',
+    name: 'AddBilling',
+    component: AddBilling
+  },
+  {
+    path: '/addBilling2',
+    name: 'AddBilling2',
+    component: AddBilling2
   },
   {
     path: '/charts',

@@ -1,6 +1,10 @@
 <template>
   <layout>
-    billing
+    <div>
+      本月支出
+      <br>
+      本月收入
+    </div>
   </layout>
 </template>
 
