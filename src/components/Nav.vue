@@ -1,14 +1,14 @@
 <template>
   <nav>
-    <router-link to="/charts" class="item">
+    <router-link to="/charts" class="item" active-class="selected">
       <Icon name="charts"/>
       图表
     </router-link>
-    <router-link to="/billing" class="item">
+    <router-link to="/billing" class="item" active-class="selected">
       <Icon name="billing"/>
       记账
     </router-link>
-    <router-link to="/settings" class="item">
+    <router-link to="/settings" class="item" active-class="selected">
       <Icon name="settings"/>
       设置
     </router-link>
@@ -27,6 +27,7 @@ nav {
   display: flex;
   flex-direction: row;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+
   > .item {
     padding: 2px 0;
     width: 33.33333%;
@@ -34,10 +35,15 @@ nav {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
     .icon {
       width: 32px;
       height: 32px;
     }
+  }
+
+  > .item.selected {
+    color: #42b983;
   }
 }
 </style>
