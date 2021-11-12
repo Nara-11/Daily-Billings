@@ -1,11 +1,18 @@
 <template>
-  <div class="nav">
-    <router-link to="/charts">图表</router-link>
-    |
-    <router-link to="/billing">记账</router-link>
-    |
-    <router-link to="/settings">设置</router-link>
-  </div>
+  <nav>
+    <router-link to="/charts" class="item">
+      <Icon name="charts"/>
+      图表
+    </router-link>
+    <router-link to="/billing" class="item">
+      <Icon name="billing"/>
+      记账
+    </router-link>
+    <router-link to="/settings" class="item">
+      <Icon name="settings"/>
+      设置
+    </router-link>
+  </nav>
 </template>
 
 <script lang="ts">
@@ -15,7 +22,22 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.nav {
-  border: 1px solid red
+nav {
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+  > .item {
+    padding: 2px 0;
+    width: 33.33333%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .icon {
+      width: 32px;
+      height: 32px;
+    }
+  }
 }
 </style>
