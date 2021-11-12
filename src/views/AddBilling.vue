@@ -117,6 +117,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "~@/assets/style/helper.scss";
+
 .bar {
   font-size: 32px;
   display: flex;
@@ -130,9 +132,9 @@ export default {
     justify-content: center;
   }
   > .item.selected {
-    color: #42b983;
+    color: $color-highlight;
     span{
-      border-bottom: 1px solid #42b983;
+      border-bottom: 1px solid $color-highlight;
     }
   }
 }

@@ -14,8 +14,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "~@/assets/style/helper.scss";
 .nav-wrapper {
-  border: 1px solid green;
+  border: 1px solid $color-highlight;
   display: flex;
   flex-direction: column;
   height: 100vh;
