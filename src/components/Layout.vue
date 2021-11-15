@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-wrapper">
+  <div class="layout-wrapper">
     <div class="content">
       <slot></slot>
     </div>
@@ -15,7 +15,7 @@ export default {
 
 <style scoped lang="scss">
 @import "~@/assets/style/helper.scss";
-.nav-wrapper {
+.layout-wrapper {
   border: 1px solid $color-highlight;
   display: flex;
   flex-direction: column;
