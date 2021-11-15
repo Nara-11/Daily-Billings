@@ -1,19 +1,33 @@
 <template>
   <div>
-    <Types/>
-    <Icons2/>
-    <Keyboard/>
+    <div class="icons">
+      <div class="p">
+        <Icon name="salary"/>
+        工资
+      </div>
+      <div class="p">
+        <Icon name="luckyMoney"/>
+        红包
+      </div>
+      <div class="p">
+        <Icon name="investment"/>
+        投资
+      </div>
+      <div class="p">
+        <Icon name="cash"/>
+        礼金
+      </div>
+      <div class="p">
+        <Icon name="others"/>
+        其他
+      </div>
+    </div>
   </div>
-
 </template>
 
 <script lang="ts">
-import Types from '@/components/Types.vue';
-import Keyboard from '@/components/Keyboard.vue';
-import Icons2 from '@/components/Icons2.vue';
 export default {
-  name: 'AddBilling',
-  components: {Icons2, Keyboard, Types}
+  name: 'Icons2'
 };
 </script>
 
