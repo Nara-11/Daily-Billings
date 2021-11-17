@@ -11,6 +11,7 @@
 import Types from '@/components/Types.vue';
 import Keyboard from '@/components/Keyboard.vue';
 import Icons2 from '@/components/Icons2.vue';
+
 export default {
   name: 'AddBilling',
   components: {Icons2, Keyboard, Types}

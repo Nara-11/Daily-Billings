@@ -2,36 +2,89 @@
   <div>
     <label class="notes">
       <span class="name">备注</span>
-      <input type="text" placeholder="点击添加备注">
-      <span class="output">￥0.00</span>
+      <input type="text" v-model="value" placeholder="点击添加备注">
+      <span class="output">￥{{ output || '0.00' }}</span>
     </label>
     <div class="numberPad">
       <div class="buttons">
-        <button>7</button>
-        <button>8</button>
-        <button>9</button>
-        <button>今天</button>
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button>+</button>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>-</button>
-        <button>0</button>
-        <button>.</button>
-        <button>×</button>
-        <button>完成</button>
+        <button @click="inputContent">7</button>
+        <button @click="inputContent">8</button>
+        <button @click="inputContent">9</button>
+        <button @click="date">今天</button>
+        <button @click="inputContent">4</button>
+        <button @click="inputContent">5</button>
+        <button @click="inputContent">6</button>
+        <button @click="operation">+</button>
+        <button @click="inputContent">1</button>
+        <button @click="inputContent">2</button>
+        <button @click="inputContent">3</button>
+        <button @click="operation">-</button>
+        <button @click="inputContent">0</button>
+        <button @click="inputContent">.</button>
+        <button @click="remove">
+          <Icon name="delete"/>
+        </button>
+        <button @click="submit" id="equal">完成</button>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Keyboard'
-};
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+
+@Component
+export default class Keyboard extends Vue {
+  output = '';
+  value = '';
+
+  inputContent(event: MouseEvent): void {
+    const button = (event.target as HTMLButtonElement);
+    const input = (button.textContent as string);
+    if (this.output.length === 10) {return;}
+    if (this.output.indexOf('.') >= 0) {
+      if ((this.output.split('.'))[1].length === 2) {return;} else if (input === '.') {return;}
+    }
+    if (this.output === '0') {
+      if (input === '0') {return;} else if ('123456789'.indexOf(input) >= 0) {this.output = this.output.slice(1);}
+    }
+    if (this.output === '0.0' && input === '0') {return;}
+    if (this.output === '0.00' && '0123456789'.indexOf(input) >= 0) {this.output = this.output.slice(4);}
+    this.output += input;
+  }
+
+  remove(): void {this.output = this.output.slice(0, -1);}
+
+  operation(event: MouseEvent): void {
+    const button = (event.target as HTMLButtonElement);
+    const input = (button.textContent as string);
+    if (input === '+' || input === '-') {
+      let equal = document.getElementById('equal') as HTMLButtonElement;
+      equal.innerText = '=';
+      if (this.output.indexOf('+') >= 0 && input === '+') {this.output = String(Number(this.output.split('+')[0]) + Number(this.output.split('+')[1]));}
+      else if (this.output.indexOf('-') >= 0 && input === '-') {this.output = String(Number(this.output.split('-')[0]) - Number(this.output.split('-')[1]));}
+      else if (this.output.indexOf('+') >= 0 && input === '-') {this.output = this.output.slice(0, -1);}
+      else if (this.output.indexOf('-') >= 0 && input === '+') {this.output = this.output.slice(0, -1);}
+      this.output += input;
+    }
+  }
+
+  submit(event: MouseEvent): void {
+    const button = (event.target as HTMLButtonElement);
+    let input = (button.textContent as string);
+    if (input === '=') {
+      if (this.output.indexOf('+') >= 0) {
+        this.output = String(Number(this.output.split('+')[0]) + Number(this.output.split('+')[1]));
+      } else if (this.output.indexOf('-') >= 0) {
+        this.output = String(Number(this.output.split('-')[0]) - Number(this.output.split('-')[1]));
+      }
+      button.innerText="完成";
+    }
+  }
+
+  date(): void {console.log('date');}
+}
 </script>
 
 <style scoped lang="scss">
@@ -54,7 +107,7 @@ export default {
   }
 
   .output {
-    font-size: 36px;
+    font-size: 18px;
     font-family: Consolas, monospace;
   }
 }
