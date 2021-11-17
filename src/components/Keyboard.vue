@@ -64,8 +64,10 @@ export default class Keyboard extends Vue {
       equal.innerText = '=';
       if (this.output.indexOf('+') >= 0 && input === '+') {this.output = String(Number(this.output.split('+')[0]) + Number(this.output.split('+')[1]));}
       else if (this.output.indexOf('-') >= 0 && input === '-') {this.output = String(Number(this.output.split('-')[0]) - Number(this.output.split('-')[1]));}
-      else if (this.output.indexOf('+') >= 0 && input === '-') {this.output = this.output.slice(0, -1);}
-      else if (this.output.indexOf('-') >= 0 && input === '+') {this.output = this.output.slice(0, -1);}
+      else if (this.output.indexOf('+') >= 0 && input === '-') {this.output = String(Number(this.output.split('+')[0]) + Number(this.output.split('+')[1]));}
+      else if (this.output.indexOf('-') >= 0 && input === '+') {this.output = String(Number(this.output.split('-')[0]) - Number(this.output.split('-')[1]));}
+      else if (this.output[this.output.length-1] ==='+' && input === '-') {this.output = this.output.slice(0, -1);}
+      else if (this.output[this.output.length-1] ==='-' && input === '+') {this.output = this.output.slice(0, -1);}
       this.output += input;
     }
   }
