@@ -1,50 +1,28 @@
 <template>
   <div>
     <Types/>
-    <Icons2/>
+    <Icons2 :data-source.sync="icons"/>
     <Keyboard/>
   </div>
 
 </template>
 
-<script lang="ts">
+<script>
 import Types from '@/components/Types.vue';
 import Keyboard from '@/components/Keyboard.vue';
 import Icons2 from '@/components/Icons2.vue';
 
 export default {
   name: 'AddBilling',
-  components: {Icons2, Keyboard, Types}
+  components: {Icons2, Keyboard, Types},
+  data(){
+    return{
+      icons:['工资','红包','投资','礼金','其他']
+    }
+  }
 };
 </script>
 
 <style scoped lang="scss">
-@import "~@/assets/style/helper.scss";
-
-.icons {
-  font-size: 18px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-
-  > .p {
-    padding: 10px 0;
-    width: 25%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-
-    .icon {
-      width: 64px;
-      height: 64px;
-      padding: 8px 8px;
-      background: lightgrey;
-      //&.selected{
-      //  background: $color-highlight;
-      //}
-    }
-  }
-}
 
 </style>
