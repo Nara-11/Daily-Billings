@@ -44,6 +44,15 @@ export default class AddBilling extends Vue {
   onUpdateDates(value3: string): void {
     this.record.dates = value3;
   }
+  saveRecord(): void {
+    const record2=JSON.parse(JSON.stringify((this.record)));
+    this.recordList.push(record2);
+    console.log(this.record)
+  }
+  @Watch('recordList')
+  onRecordListChange(): void {
+    window.localStorage.setItem('recordList',JSON.stringify(this.recordList));
+  }
 }
 </script>
 
