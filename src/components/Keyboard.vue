@@ -62,12 +62,7 @@ export default class Keyboard extends Vue {
     if (input === '+' || input === '-') {
       let equal = document.getElementById('equal') as HTMLButtonElement;
       equal.innerText = '=';
-      if (this.output.indexOf('+') >= 0 && input === '+') {this.output = String(Number(this.output.split('+')[0]) + Number(this.output.split('+')[1]));}
-      else if (this.output.indexOf('-') >= 0 && input === '-') {this.output = String(Number(this.output.split('-')[0]) - Number(this.output.split('-')[1]));}
-      else if (this.output.indexOf('+') >= 0 && input === '-') {this.output = String(Number(this.output.split('+')[0]) + Number(this.output.split('+')[1]));}
-      else if (this.output.indexOf('-') >= 0 && input === '+') {this.output = String(Number(this.output.split('-')[0]) - Number(this.output.split('-')[1]));}
-      else if (this.output[this.output.length-1] ==='+' && input === '-') {this.output = this.output.slice(0, -1);}
-      else if (this.output[this.output.length-1] ==='-' && input === '+') {this.output = this.output.slice(0, -1);}
+      if (this.output.indexOf('+') >= 0 && input === '+') {this.output = String(Number(this.output.split('+')[0]) + Number(this.output.split('+')[1]));} else if (this.output.indexOf('-') >= 0 && input === '-') {this.output = String(Number(this.output.split('-')[0]) - Number(this.output.split('-')[1]));} else if (this.output.indexOf('+') >= 0 && input === '-') {this.output = String(Number(this.output.split('+')[0]) + Number(this.output.split('+')[1]));} else if (this.output.indexOf('-') >= 0 && input === '+') {this.output = String(Number(this.output.split('-')[0]) - Number(this.output.split('-')[1]));} else if (this.output[this.output.length - 1] === '+' && input === '-') {this.output = this.output.slice(0, -1);} else if (this.output[this.output.length - 1] === '-' && input === '+') {this.output = this.output.slice(0, -1);}
       this.output += input;
     }
   }
@@ -81,7 +76,11 @@ export default class Keyboard extends Vue {
       } else if (this.output.indexOf('-') >= 0) {
         this.output = String(Number(this.output.split('-')[0]) - Number(this.output.split('-')[1]));
       }
-      button.innerText="完成";
+      button.innerText = '完成';
+    } else {
+      this.$emit('update:value', this.value);
+      this.$emit('update:value2', this.output);
+      this.$emit('submit', this.output);
     }
   }
 

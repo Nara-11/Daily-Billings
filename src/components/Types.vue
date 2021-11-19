@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="types">
-      <router-link to="/addBilling" class="item" active-class="selected">
+      <router-link to="/addBilling" class="item" :class="value === '-'">
         <span>支出</span>
       </router-link>
-      <router-link to="/addBilling2" class="item" active-class="selected">
+      <router-link to="/addBilling2" class="item" :class="value === '+'">
         <span>收入</span>
       </router-link>
       <router-link to="/" class="cancel">
@@ -15,9 +15,20 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Types'
-};
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+
+@Component
+export default class Types extends Vue {
+  @Prop() readonly value:string;
+
+  selectType(type: string): void {
+    if (type !== '-' && type !== '+') {
+      throw new Error('type is unknown');
+    }
+    this.$emit('update:value',type)
+  }
+}
 </script>
 
 <style scoped lang="scss">

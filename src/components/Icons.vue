@@ -28,6 +28,7 @@ export default class Icons extends Vue {
   change(icon: string): void {
     this.selectedIcons.splice(this.selectedIcons.indexOf(icon), 1);
     this.selectedIcons.push(icon);
+    this.$emit('update:value',this.selectedIcons)
   }
 
   addIcon(): void {
