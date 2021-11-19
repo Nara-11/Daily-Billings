@@ -81,6 +81,7 @@ export default class Keyboard extends Vue {
       this.$emit('update:value', this.value);
       this.$emit('update:value2', this.output);
       this.$emit('submit', this.output);
+      this.output=this.value.toString();
     }
   }
 
