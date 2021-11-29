@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Calendar v-if="seen"/>
     <label class="notes">
       <span class="name">备注</span>
       <input type="text" v-model="value" placeholder="点击添加备注">
@@ -33,11 +34,15 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
+import Calendar from '@/components/Calendar.vue';
 
-@Component
+@Component({
+  components: {Calendar}
+})
 export default class Keyboard extends Vue {
   output = '';
   value = '';
+  seen = false;
 
   inputContent(event: MouseEvent): void {
     const button = (event.target as HTMLButtonElement);
@@ -81,11 +86,13 @@ export default class Keyboard extends Vue {
       this.$emit('update:value', this.value);
       this.$emit('update:value2', this.output);
       this.$emit('submit', this.output);
-      this.output=this.value.toString();
+      this.output = this.value.toString();
     }
   }
 
-  date(): void {console.log('date');}
+  date(): void {
+    this.seen = true;
+  }
 }
 </script>
 

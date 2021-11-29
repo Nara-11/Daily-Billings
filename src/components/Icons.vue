@@ -28,13 +28,15 @@ export default class Icons extends Vue {
   change(icon: string): void {
     this.selectedIcons.splice(this.selectedIcons.indexOf(icon), 1);
     this.selectedIcons.push(icon);
-    this.$emit('update:value',this.selectedIcons)
+    this.$emit('update:value', this.selectedIcons);
   }
 
   addIcon(): void {
     const name = window.prompt('新增类别名：');
     if (name === '') {
       window.alert('不能为空');
+    } else if (name === null) {
+      return;
     } else if (this.dataSource) {
       this.$emit('update:dataSource', [...this.dataSource, name]);
     }

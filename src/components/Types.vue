@@ -1,16 +1,16 @@
 <template>
   <div>
-    <div class="types">
-      <router-link to="/addBilling" class="item" :class="value === '-'">
+    <ul class="types">
+      <li class="item" :class="{selected: value === '-'}" @click="selectType('-')">
         <span>支出</span>
-      </router-link>
-      <router-link to="/addBilling2" class="item" :class="value === '+'">
+      </li>
+      <li class="item" :class="{selected: value === '+'}" @click="selectType('+')">
         <span>收入</span>
-      </router-link>
+      </li>
       <router-link to="/" class="cancel">
         <span>取消</span>
       </router-link>
-    </div>
+    </ul>
   </div>
 </template>
 
@@ -20,13 +20,14 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Types extends Vue {
-  @Prop() readonly value:string;
+  @Prop() readonly value!:string;
 
   selectType(type: string): void {
+    console.log('selectType', type)
     if (type !== '-' && type !== '+') {
       throw new Error('type is unknown');
     }
-    this.$emit('update:value',type)
+     this.$emit('update:value',type);
   }
 }
 </script>
