@@ -8,8 +8,10 @@
       </li>
       <template>
         <div class="new" @click="addIcon">
-          <Icon name="addIcon"></Icon>
-          添加
+          <router-link to="/labels">
+            <Icon name="addIcon" class="iconAdd"></Icon>
+            <span class="add">添加</span>
+          </router-link>
         </div>
       </template>
     </ul>
@@ -31,16 +33,16 @@ export default class Icons extends Vue {
     this.$emit('update:value', this.selectedIcons);
   }
 
-  addIcon(): void {
-    const name = window.prompt('新增类别名：');
-    if (name === '') {
-      window.alert('不能为空');
-    } else if (name === null) {
-      return;
-    } else if (this.dataSource) {
-      this.$emit('update:dataSource', [...this.dataSource, name]);
-    }
-  }
+  // addIcon(): void {
+  //   const name = window.prompt('新增类别名：');
+  //   if (name === '') {
+  //     window.alert('不能为空');
+  //   } else if (name === null) {
+  //     return;
+  //   } else if (this.dataSource) {
+  //     this.$emit('update:dataSource', [...this.dataSource, name]);
+  //   }
+  // }
 }
 </script>
 
@@ -79,17 +81,22 @@ export default class Icons extends Vue {
 .new {
   padding: 10px 0;
   width: 25%;
-  display: flex;
   justify-content: space-between;
+  display: flex;
   align-items: center;
   flex-direction: column;
 
-  > .icon {
+  .iconAdd {
+    display: block;
     width: 64px;
     height: 64px;
     padding: 8px 8px;
     background: lightgrey;
     border: none;
+  }
+  .add{
+    display: block;
+    text-align: center;
   }
 }
 </style>

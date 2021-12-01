@@ -1,5 +1,5 @@
 const localStorageKeyName = 'recordList';
-const model = {
+const recordListModel = {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   clone(data: RecordItem[] | RecordItem){
     return JSON.parse(JSON.stringify((data)));
@@ -9,8 +9,8 @@ const model = {
     return JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]') as RecordItem[];
   },
   save(data: RecordItem[]): void {
-    return window.localStorage.setItem('recordList', JSON.stringify(data));
+    window.localStorage.setItem('recordList', JSON.stringify(data));
   }
 };
 
-export default model;
+export default recordListModel;

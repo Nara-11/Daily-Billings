@@ -7,13 +7,12 @@
         {{ icon }}
       </li>
       <template>
-          <div class="new" @click="addIcon">
-            <Icon name="addIcon"></Icon>
-            添加
-          </div>
+        <div class="new" @click="addIcon">
+          <Icon name="addIcon"></Icon>
+          添加
+        </div>
       </template>
     </ul>
-
   </div>
 </template>
 

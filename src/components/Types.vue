@@ -23,11 +23,10 @@ export default class Types extends Vue {
   @Prop() readonly value!:string;
 
   selectType(type: string): void {
-    console.log('selectType', type)
     if (type !== '-' && type !== '+') {
       throw new Error('type is unknown');
     }
-     this.$emit('update:value',type);
+    this.$emit('update:value',type);
   }
 }
 </script>
