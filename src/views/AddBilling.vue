@@ -22,18 +22,18 @@ const labelList = labelListModel.fetch();
 
 @Component({components: {Icons, Keyboard, Types}})
 export default class AddBilling extends Vue {
-  icons=labelList;
-  // icons = ['餐食', '饮料', '蔬菜', '水果', '零食', '购物', '美容', '房屋', '医疗', '教育', '长辈', '孩子', '日用', '衣服', '交通', '爱好', '通讯', '社交', '捐赠', '家居', '烟酒', '书籍', '数码', '维修', '礼金', '礼物', '办公', '服务', '宠物', '旅行', '快递', '娱乐', '其他'];
+  icons = labelList;
+  icons1 = ['餐食', '饮料', '蔬菜', '水果', '零食', '购物', '美容', '房屋', '医疗', '教育', '长辈', '孩子', '日用', '衣服', '交通', '爱好', '通讯', '社交', '捐赠', '家居', '烟酒', '书籍', '数码', '维修', '礼金', '礼物', '办公', '服务', '宠物', '旅行', '快递', '娱乐', '其他'];
   icons2 = ['工资', '红包', '投资', '礼金', '其他'];
   recordList = recordList;
-  record = {icons: [''], icons2: [''], notes: '', types: '-', amounts: 0, dates: ''};
+  record = {icons: [''], notes: '', types: '-', amounts: 0, dates: ''};
   showKeyboard = false;
-  iconsChoose = this.icons;
+  iconsChoose = this.icons1;
 
   onUpdateTypes(): void {
     if (this.record.types === '-') {
       this.showKeyboard = false;
-      this.iconsChoose = this.icons;
+      this.iconsChoose = this.icons1;
     } else if (this.record.types === '+') {
       this.showKeyboard = false;
       this.iconsChoose = this.icons2;
@@ -43,10 +43,8 @@ export default class AddBilling extends Vue {
   onUpdateIcons(value: string[]): void {
     this.showKeyboard = true;
     if (this.record.types === '-') {
-      this.record.icons2 = [''];
-      this.record.icons = value;
+      this.record.icons1 = value;
     } else if (this.record.types === '+') {
-      this.record.icons = [''];
       this.record.icons2 = value;
     }
   }

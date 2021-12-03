@@ -7,7 +7,7 @@
         {{ icon }}
       </li>
       <template>
-        <div class="new" @click="addIcon">
+        <div class="new">
           <router-link to="/labels">
             <Icon name="addIcon" class="iconAdd"></Icon>
             <span class="add">添加</span>
@@ -32,17 +32,6 @@ export default class Icons extends Vue {
     this.selectedIcons.push(icon);
     this.$emit('update:value', this.selectedIcons);
   }
-
-  // addIcon(): void {
-  //   const name = window.prompt('新增类别名：');
-  //   if (name === '') {
-  //     window.alert('不能为空');
-  //   } else if (name === null) {
-  //     return;
-  //   } else if (this.dataSource) {
-  //     this.$emit('update:dataSource', [...this.dataSource, name]);
-  //   }
-  // }
 }
 </script>
 

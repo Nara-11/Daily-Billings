@@ -19,11 +19,11 @@ const labelListModel: LabelListModel = {
     return this.data;
   },
   save() {
-    window.localStorage.setItem('recordList', JSON.stringify(this.data));
+    window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
   },
   create(name: string) {
-    const id=createId().toString();
     const names = this.data.map(item => item.name);
+    const id=createId().toString();
     if (names.indexOf(name) >= 0) {
       return 'duplicated';
     } else {

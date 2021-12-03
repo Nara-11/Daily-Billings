@@ -43,7 +43,6 @@ export default class Labels extends Vue {
   }
 
   remove(id:string): void {
-    console.log(this.labels)
     labelListModel.remove(id);
   }
 }
