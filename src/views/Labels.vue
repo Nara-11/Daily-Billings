@@ -28,7 +28,7 @@ import labelListModel from '@/models/labelListModel';
 labelListModel.fetch();
 @Component
 export default class Labels extends Vue {
-  labels = labelListModel.data;
+  labels = window.labelList;
 
   createLabel(): void {
     const name = window.prompt('请输入标签名');

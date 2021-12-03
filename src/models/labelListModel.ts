@@ -1,17 +1,7 @@
 import createId from '@/lib/createId';
 
 const localStorageKeyName = 'labelList';
-type Label = {
-  id: string;
-  name: string;
-}
-type LabelListModel = {
-  data: Label[]
-  fetch: () => Label[]
-  create: (name: string) => 'success' | 'duplicated'
-  save: () => void
-  remove: (id: string) => void
-}
+
 const labelListModel: LabelListModel = {
   data: [],
   fetch() {
