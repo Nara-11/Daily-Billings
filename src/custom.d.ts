@@ -20,5 +20,6 @@ type LabelListModel = {
 
 interface Window {
   labelList: Label[];
-  createLabel:(name:string)=>void
+  createLabel: (name: string) => void;
+  removeLabel: (id: string) => void;
 }

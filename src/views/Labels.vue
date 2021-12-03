@@ -23,9 +23,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import labelListModel from '@/models/labelListModel';
 
-labelListModel.fetch();
 @Component
 export default class Labels extends Vue {
   labels = window.labelList;
@@ -38,7 +36,7 @@ export default class Labels extends Vue {
   }
 
   remove(id: string): void {
-    labelListModel.remove(id);
+    window.removeLabel(id);
   }
 }
 </script>

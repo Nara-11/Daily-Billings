@@ -22,6 +22,9 @@ window.createLabel = (name: string) => {
     window.alert('添加成功');
   }
 };
+window.removeLabel=(id:string)=>{
+  labelListModel.remove(id);
+}
 
 new Vue({
   router,
