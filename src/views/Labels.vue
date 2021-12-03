@@ -1,14 +1,16 @@
 <template>
   <div>
     <div class="bar">
-      <span>＜</span>
-      <span>增删标签</span>
+      <span class="title">编辑标签</span>
+      <router-link to="/addBilling" class="cancel">
+        <span>取消</span>
+      </router-link>
     </div>
     <ol>
       <li v-for="label in labels" :key="label.id" class="labels">
         <span class="label">
           {{ label.name }}
-          <Icon name="close"/>
+          <Icon name="close" @click.native="remove(label.id)"/>
         </span>
       </li>
     </ol>
@@ -39,13 +41,43 @@ export default class Labels extends Vue {
       }
     }
   }
+
+  remove(id:string): void {
+    console.log(this.labels)
+    labelListModel.remove(id);
+  }
 }
 </script>
 
 <style scoped lang="scss">
-.bar{
+@import "~@/assets/style/helper.scss";
+
+.bar {
   background: lightgrey;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+  @extend %clearFix;
+  justify-content: space-between;
+  text-align: center;
+
+  .title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 32px;
+    padding: 2px;
+  }
+
+  > .cancel {
+    font-size: 20px;
+    float: right;
+    width: 64px;
+    padding-top: 10px;
+    padding-right: 10px;
+  }
 }
+
 .labels {
   font-size: 16px;
   padding: 0 16px;
@@ -66,8 +98,7 @@ export default class Labels extends Vue {
 }
 
 .createTag {
-  background: #767676;
-  color: white;
+  background: lightgrey;
   border-radius: 4px;
   border: none;
   height: 40px;
