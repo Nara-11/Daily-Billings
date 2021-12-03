@@ -16,17 +16,20 @@ import Icons from '@/components/Icons.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import recordListModel from '@/models/recordListModel';
 import labelListModel from '@/models/labelListModel';
+import Labels from '@/views/Labels.vue';
 
 const recordList = recordListModel.fetch();
 const labelList = labelListModel.fetch();
 
-@Component({components: {Icons, Keyboard, Types}})
+@Component({components: {Icons, Keyboard, Types,Labels}})
 export default class AddBilling extends Vue {
   icons = labelList;
   icons1 = ['餐食', '饮料', '蔬菜', '水果', '零食', '购物', '美容', '房屋', '医疗', '教育', '长辈', '孩子', '日用', '衣服', '交通', '爱好', '通讯', '社交', '捐赠', '家居', '烟酒', '书籍', '数码', '维修', '礼金', '礼物', '办公', '服务', '宠物', '旅行', '快递', '娱乐', '其他'];
   icons2 = ['工资', '红包', '投资', '礼金', '其他'];
   recordList = recordList;
-  record = {icons: [''], notes: '', types: '-', amounts: 0, dates: ''};
+  record = {
+    icons: [''], notes: '', types: '-', amounts: 0, dates: ''
+  };
   showKeyboard = false;
   iconsChoose = this.icons1;
 
@@ -42,10 +45,8 @@ export default class AddBilling extends Vue {
 
   onUpdateIcons(value: string[]): void {
     this.showKeyboard = true;
-    if (this.record.types === '-') {
-      this.record.icons1 = value;
-    } else if (this.record.types === '+') {
-      this.record.icons2 = value;
+    if (this.record.types === '-' || this.record.types === '+') {
+      this.record.icons = value;
     }
   }
 
@@ -62,14 +63,12 @@ export default class AddBilling extends Vue {
   }
 
   saveRecord(): void {
-    const record2 = recordListModel.clone(this.record);
-    record2.dates = (new Date()).toLocaleDateString();
-    this.recordList.push(record2);
+    recordListModel.create(this.record);
   }
 
   @Watch('recordList')
   onRecordListChange(): void {
-    recordListModel.save(this.recordList);
+    recordListModel.save();
   }
 }
 </script>

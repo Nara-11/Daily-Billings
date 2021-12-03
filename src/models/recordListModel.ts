@@ -1,15 +1,28 @@
 const localStorageKeyName = 'recordList';
-const recordListModel = {
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  clone(data: RecordItem[] | RecordItem){
+type RecordListModel = {
+  data: RecordItem[]
+  clone: (data: RecordItem[] | RecordItem) => RecordItem
+  create: (record: RecordItem) => void
+  fetch: () => RecordItem[]
+  save: () => void
+}
+const recordListModel: RecordListModel = {
+  data: [],
+
+  clone(data): RecordItem {
     return JSON.parse(JSON.stringify((data)));
   },
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  fetch(){
-    return JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]') as RecordItem[];
+  create(record){
+    const record2 = this.clone(record);
+    record2.dates = (new Date()).toLocaleDateString();
+    this.data.push(record2);
   },
-  save(data: RecordItem[]): void {
-    window.localStorage.setItem('recordList', JSON.stringify(data));
+  fetch() {
+    this.data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
+    return this.data;
+  },
+  save() {
+    window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
   }
 };
 
