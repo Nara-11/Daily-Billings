@@ -19,9 +19,11 @@ type LabelListModel = {
 }
 
 interface Window {
-  labelList: Label[];
-  createLabel: (name: string) => void;
-  removeLabel: (id: string) => void;
-  recordList: RecordItem[];
-  createRecord: (record: RecordItem) => void;
+  store:{
+    labelList: Label[];
+    createLabel: (name: string) => void;
+    removeLabel: (id: string) => void;
+    recordList: RecordItem[];
+    createRecord: (record: RecordItem) => void;
+  }
 }
