@@ -13,18 +13,15 @@ import Vue from 'vue';
 import Types from '@/components/Types.vue';
 import Keyboard from '@/components/Keyboard.vue';
 import Icons from '@/components/Icons.vue';
-import {Component, Watch} from 'vue-property-decorator';
-import recordListModel from '@/models/recordListModel';
+import {Component} from 'vue-property-decorator';
 import Labels from '@/views/Labels.vue';
-
-const recordList = recordListModel.fetch();
 
 @Component({components: {Icons, Keyboard, Types,Labels}})
 export default class AddBilling extends Vue {
   icons = window.labelList;
   icons1 = ['餐食', '饮料', '蔬菜', '水果', '零食', '购物', '美容', '房屋', '医疗', '教育', '长辈', '孩子', '日用', '衣服', '交通', '爱好', '通讯', '社交', '捐赠', '家居', '烟酒', '书籍', '数码', '维修', '礼金', '礼物', '办公', '服务', '宠物', '旅行', '快递', '娱乐', '其他'];
   icons2 = ['工资', '红包', '投资', '礼金', '其他'];
-  recordList = recordList;
+  recordList = window.recordList;
   record = {
     icons: [''], notes: '', types: '-', amounts: 0, dates: ''
   };
@@ -61,12 +58,7 @@ export default class AddBilling extends Vue {
   }
 
   saveRecord(): void {
-    recordListModel.create(this.record);
-  }
-
-  @Watch('recordList')
-  onRecordListChange(): void {
-    recordListModel.save();
+    window.createRecord(this.record);
   }
 }
 </script>

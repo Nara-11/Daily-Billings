@@ -12,10 +12,11 @@ const recordListModel: RecordListModel = {
   clone(data): RecordItem {
     return JSON.parse(JSON.stringify((data)));
   },
-  create(record){
+  create(record) {
     const record2 = this.clone(record);
     record2.dates = (new Date()).toLocaleDateString();
     this.data.push(record2);
+    this.save();
   },
   fetch() {
     this.data = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');

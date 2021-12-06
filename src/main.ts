@@ -7,12 +7,20 @@ import Nav from '@/components/Nav.vue';
 import Layout from '@/components/Layout.vue';
 import Icon from '@/components/Icon.vue';
 import labelListModel from '@/models/labelListModel';
+import recordListModel from '@/models/recordListModel';
 
 Vue.config.productionTip = false;
 Vue.component('Nav', Nav);
 Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
 
+//record store
+window.recordList = recordListModel.fetch();
+window.createRecord = (record:RecordItem) => {
+  recordListModel.create(record);
+};
+
+//label store
 window.labelList = labelListModel.fetch();
 window.createLabel = (name: string) => {
   const message = labelListModel.create(name);
@@ -22,9 +30,9 @@ window.createLabel = (name: string) => {
     window.alert('添加成功');
   }
 };
-window.removeLabel=(id:string)=>{
+window.removeLabel = (id: string) => {
   labelListModel.remove(id);
-}
+};
 
 new Vue({
   router,
