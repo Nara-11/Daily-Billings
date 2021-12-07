@@ -23,21 +23,25 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import store from '@/store/index2';
 
 @Component
 export default class Labels extends Vue {
-  labels = store.labelList;
+  get labels():[]{
+    return this.$store.state.labelList;
+  }
+  created() :void{
+    this.$store.commit('fetchLabels');
+  }
 
   createLabel(): void {
     const name = window.prompt('请输入标签名');
     if (name) {
-      store.createLabel(name);
+      this.$store.commit('createLabel', name);
     }
   }
 
   remove(id: string): void {
-    store.removeLabel(id);
+    this.$store.commit('removeLabel',id);
   }
 }
 </script>
