@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Calendar v-if="seen"/>
+    <Calendar v-if="seen" class="cal"/>
     <label class="notes">
       <span class="name">备注</span>
       <input type="text" v-model="value" placeholder="点击添加备注">
@@ -98,6 +98,10 @@ export default class Keyboard extends Vue {
 
 <style scoped lang="scss">
 @import "~@/assets/style/helper.scss";
+.cal{
+  flex-grow: 1;
+  overflow: auto;
+}
 
 .notes {
   font-size: 18px;

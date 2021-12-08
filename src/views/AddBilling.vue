@@ -2,9 +2,15 @@
   <div class="addBilling">
     <!--    {{ recordList }}-->
     <Types :value.sync="record.types" @update:value="onUpdateTypes"/>
-    <Icons :data-source.sync=iconsChoose @update:value="onUpdateIcons"/>
-    <Keyboard v-show="showKeyboard" @update:value="onUpdateNotes" @update:value2="onUpdateAmounts"
-              @update:value3="onUpdateDates" @submit="saveRecord" class="keyboard"/>
+    <div class="icons">
+      <Icons :data-source.sync=iconsChoose @update:value="onUpdateIcons"/>
+    </div>
+    <transition name="fade" enter-active-class="animate__animated animate__slideInUp"
+                leave-active-class="animate_animated animate_slideOutDown">
+      <Keyboard v-show="showKeyboard" @update:value="onUpdateNotes" @update:value2="onUpdateAmounts"
+                @update:value3="onUpdateDates" @submit="saveRecord"/>
+    </transition>
+
   </div>
 </template>
 
@@ -15,6 +21,7 @@ import Keyboard from '@/components/Keyboard.vue';
 import Icons from '@/components/Icons.vue';
 import {Component} from 'vue-property-decorator';
 import Labels from '@/views/Labels.vue';
+import 'animate.css';
 
 @Component({
   components: {Icons, Keyboard, Types, Labels}
@@ -29,11 +36,11 @@ export default class AddBilling extends Vue {
   showKeyboard = false;
   iconsChoose = this.icons1.concat(this.icons);
 
-  get recordList():[] {
+  get recordList(): [] {
     return this.$store.state.recordList;
   }
 
-  created():void {
+  created(): void {
     this.$store.commit('fetchRecords');
   }
 
@@ -73,12 +80,15 @@ export default class AddBilling extends Vue {
 </script>
 
 <style scoped lang="scss">
-//.addBilling{
-//  position: relative;
-//}
-//.keyboard{
-//  position: absolute;
-//  width:100%;
-//  bottom:240px;
-//}
+.addBilling {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .icons {
+    flex-grow: 1;
+    overflow: auto;
+  }
+}
+
 </style>
