@@ -1,11 +1,11 @@
 <template>
   <div>
     <ul class="types">
-      <li class="item" :class="{selected: value === '-'}" @click="selectType('-')">
-        <span>支出</span>
+      <li class="item" :class="{selected: value === '-',[classPredix+'-item']:classPredix}" @click="selectType('-')">
+        支出
       </li>
-      <li class="item" :class="{selected: value === '+'}" @click="selectType('+')">
-        <span>收入</span>
+      <li class="item" :class="{selected: value === '+',[classPredix+'-item']:classPredix}" @click="selectType('+')">
+        收入
       </li>
       <router-link to="/" class="cancel">
         <span>取消</span>
@@ -20,7 +20,8 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Types extends Vue {
-  @Prop() readonly value!:string;
+  @Prop(String) readonly value!:string;
+  @Prop(String)classPredix?:string;
 
   selectType(type: string): void {
     if (type !== '-' && type !== '+') {
@@ -46,15 +47,14 @@ export default class Types extends Vue {
     width: 50%;
     display: flex;
     justify-content: center;
-    font-size: 32px;
+    align-items: center;
+    font-size: 24px;
+    height: 64px;
   }
 
   > .item.selected {
     color: $color-highlight;
-
-    span {
-      border-bottom: 1px solid $color-highlight;
-    }
+    border-bottom: 1px solid $color-highlight;
   }
 
   > .cancel {

@@ -1,19 +1,18 @@
 import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
-import Billing from '@/views/Billing.vue';
-import Charts from '@/views/Charts.vue';
 import Settings from '@/views/Settings.vue';
 import NotFound from '@/views/NotFound.vue';
 import AddBilling from '@/views/AddBilling.vue';
 import Labels from '@/views/Labels.vue';
+import Statistics from '@/views/Statistics.vue';
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'Billing',
-    component: Billing
+    name: 'Statistics',
+    component: Statistics
   },
   {
     path: '/addBilling',
@@ -21,14 +20,14 @@ const routes: Array<RouteConfig> = [
     component: AddBilling
   },
   {
-    path: '/charts',
-    name: 'Charts',
-    component: Charts
-  },
-  {
     path: '/labels',
     name: 'Labels',
     component: Labels
+  },
+  {
+    path: '/statistics',
+    name: 'Statistics',
+    component: Statistics
   },
   {
     path: '/settings',

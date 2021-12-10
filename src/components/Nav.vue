@@ -1,8 +1,8 @@
 <template>
   <nav>
-    <router-link to="/charts" class="item" active-class="selected">
+    <router-link to="/statistics" class="item" active-class="selected">
       <Icon name="charts"/>
-      图表
+      账单
     </router-link>
     <router-link to="/addBilling" class="item" active-class="selected">
       <Icon name="billing"/>
