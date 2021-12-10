@@ -14,7 +14,7 @@ const labelStore = {
       window.alert('标签名重复');
       return 'duplicated';
     } else {
-      this.labelList.push({id, name: name});
+      // this.labelList.push({id, name});
       this.saveLabels();
       window.alert('添加成功');
       return 'success';

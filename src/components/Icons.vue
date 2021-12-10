@@ -1,16 +1,16 @@
 <template>
   <div>
     <ul class="icons">
-      <li v-for="icon in dataSource" :key="icon" @click="change(icon)"
+      <li v-for="icon in value" :key="icon" @click="change(icon)"
           :class="{selected:selectedIcons.indexOf(icon)>=0}">
-        <Icon :name="icon"/>
-        {{ icon }}
+        <Icon :name="icon.name"/>
+        {{ icon.name }}
       </li>
       <template>
         <div class="new">
           <router-link to="/labels">
-            <Icon name="addIcon" class="iconAdd"></Icon>
-            <span class="add">添加</span>
+            <Icon name="settings" class="iconAdd"></Icon>
+            <span class="add">设置</span>
           </router-link>
         </div>
       </template>
@@ -21,13 +21,17 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
-
+interface IconType {
+  name: string;
+  id: number;
+  type: "+" | "-";
+}
 @Component
 export default class Icons extends Vue {
-  @Prop() dataSource: string[] | undefined;
-  selectedIcons: string[] = [];
+  @Prop() value: IconType[] | undefined;
+  selectedIcons: IconType[] = [];
 
-  change(icon: string): void {
+  change(icon: IconType): void {
     this.selectedIcons.splice(this.selectedIcons.indexOf(icon), 1);
     this.selectedIcons.push(icon);
     this.$emit('update:value', this.selectedIcons);

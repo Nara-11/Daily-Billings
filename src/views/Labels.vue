@@ -9,8 +9,13 @@
     <ol>
       <li v-for="label in labels" :key="label.id" class="labels">
         <span class="label">
-          {{ label.name }}
-          <Icon name="close" @click.native="remove(label.id)"/>
+          <span class="left">
+            <Icon :name="label.name"/>
+            {{ label.name }}
+          </span>
+          <span class="right">
+            <Icon name="close" @click.native="remove(label.id)"/>
+          </span>
         </span>
       </li>
     </ol>
@@ -26,10 +31,12 @@ import {Component} from 'vue-property-decorator';
 
 @Component
 export default class Labels extends Vue {
-  get labels():[]{
+
+  get labels(): [] {
     return this.$store.state.labelList;
   }
-  created() :void{
+
+  created(): void {
     this.$store.commit('fetchLabels');
   }
 
@@ -41,7 +48,7 @@ export default class Labels extends Vue {
   }
 
   remove(id: string): void {
-    this.$store.commit('removeLabel',id);
+    this.$store.commit('removeLabel', id);
   }
 }
 </script>
@@ -76,7 +83,7 @@ export default class Labels extends Vue {
 }
 
 .labels {
-  font-size: 16px;
+  font-size: 20px;
   padding: 0 16px;
 
   > .label {
@@ -86,7 +93,10 @@ export default class Labels extends Vue {
     justify-content: space-between;
     border-bottom: 1px solid #e6e6e6;
 
-    svg {
+    .left svg{
+      margin-left: 16px;
+    }
+    .right svg {
       width: 42px;
       height: 42px;
       color: rgb(251, 83, 0);

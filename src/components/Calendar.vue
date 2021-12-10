@@ -1,46 +1,37 @@
-
 <template>
   <div id="calendar">
-    <!-- 年份 月份 -->
     <div class="month">
       <ul>
-        <!--点击会触发pickPre函数，重新刷新当前日期 @click(vue v-on:click缩写) -->
         <li class="arrow" @click="pickPre(currentYear,currentMonth)">❮</li>
-        <li class="year-month" @click="pickYear(currentYear,currentMonth)">
+        <li class="year-month">
           <span class="choose-year">{{ currentYear }}</span>
           <span class="choose-month">{{ currentMonth }}月</span>
         </li>
         <li class="arrow" @click="pickNext(currentYear,currentMonth)">❯</li>
       </ul>
     </div>
-    <!-- 星期 -->
     <ul class="weekdays">
       <li>一</li>
       <li>二</li>
       <li>三</li>
       <li>四</li>
       <li>五</li>
-      <li style="color:red">六</li>
-      <li style="color:red">日</li>
+      <li>六</li>
+      <li>日</li>
     </ul>
-    <!-- 日期 -->
     <ul class="days">
-      <!-- 核心 v-for循环 每一次循环用<li>标签创建一天 -->
       <li v-for="dayObject in days" :key="dayObject.day">
-        <!--本月-->
-        <!--如果不是本月  改变类名加灰色-->
-
-        <span v-if="dayObject.day.getMonth()+1 !== currentMonth" class="other-month">{{ dayObject.day.getDate() }}</span>
-
-        <!--如果是本月  还需要判断是不是这一天-->
-        <span v-else>
-          <!--今天  同年同月同日-->
-                <span
-                    v-if="dayObject.day.getFullYear() === new Date().getFullYear() && dayObject.day.getMonth() === new Date().getMonth() && dayObject.day.getDate() === new Date().getDate()"
-                    class="active">{{ dayObject.day.getDate() }}</span>
-                <span v-else>{{ dayObject.day.getDate() }}</span>
-            </span>
-
+        <span v-if="dayObject.day.getMonth()+1 !== currentMonth" class="other-month">
+          {{ dayObject.day.getDate() }}
+        </span>
+        <span v-else @click="pickDay(currentYear,currentMonth,dayObject.day.getDate())">
+          <span
+              v-if="dayObject.day.getFullYear() === new Date().getFullYear() && dayObject.day.getMonth() === new Date().getMonth() && dayObject.day.getDate() === new Date().getDate()"
+              class="active">
+            {{ dayObject.day.getDate() }}
+          </span>
+          <span v-else>{{ dayObject.day.getDate() }}</span>
+        </span>
       </li>
     </ul>
   </div>
@@ -48,10 +39,10 @@
 
 <script>
 /* eslint-disable */
-export default{
+export default {
   name: 'Calendar',
   el: '#calendar',
-  data (){
+  data() {
     return {
       currentDay: 1,
       currentMonth: 1,
@@ -114,35 +105,33 @@ export default{
       d.setDate(35);
       this.initData(this.formatDate(d.getFullYear(), d.getMonth() + 1, 1));
     },
-    pickYear: function (year, month) {
-      alert(year + "," + month);
+    pickDay: function (year, month, day) {
+      if (confirm("是否将日期修改为" + year + "年" + month + "月" + day + "日")) {
+        this.$emit('updateDate', month + "." + day);
+        // this.$emit('update:value3', this.formatDate(year, month, day));
+      }
     },
-
-    // 返回 类似 2016-01-02 格式的字符串
     formatDate: function (year, month, day) {
-      let y = year;
-      let m = month;
-      if (m < 10) m = "0" + m;
-      let d = day;
-      if (d < 10) d = "0" + d;
-      return y + "-" + m + "-" + d
+      return year + "/" + month + "/" + day
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
+@import "~@/assets/style/helper.scss";
+
 #calendar {
   width: 80%;
   margin: 0 auto;
-  font-family: Verdana, sans-serif;
+  line-height: 1;
   background: #E8F0F3;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
 .month {
   width: 100%;
-  background: #00B8EC;
+  background: $color-highlight;
 }
 
 .month ul {
@@ -157,10 +146,6 @@ export default{
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-}
-
-.year-month:hover {
-  background: rgba(150, 2, 12, 0.1);
 }
 
 .choose-year {
@@ -191,10 +176,10 @@ export default{
 .weekdays {
   margin: 0;
   padding: 10px 0;
-  background-color: #00B8EC;
+  background-color: $color-highlight;
   display: flex;
   flex-wrap: wrap;
-  color: #FFFFFF;
+  color: white;
   justify-content: space-around;
 }
 
@@ -217,7 +202,6 @@ export default{
   list-style-type: none;
   display: inline-block;
   width: 14.2%;
-  height: 70px;
   text-align: center;
   padding-bottom: 15px;
   padding-top: 15px;
@@ -227,17 +211,19 @@ export default{
 
 .days li .active {
   padding: 6px 10px;
-  border-radius: 50%;
-  background: #00B8EC;
+  background: $color-highlight;
   color: #fff;
+}
+
+.days li :hover {
+  padding: 6px 5px;
+  background: lightgrey;
 }
 
 .days li .other-month {
   padding: 5px;
-  color: gainsboro;
+  display: none;
+  color: #fff;
 }
 
-.days li:hover {
-  background: #e1e1e1;
-}
 </style>

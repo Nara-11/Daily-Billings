@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Calendar v-if="seen" class="cal"/>
+    <Calendar v-if="seen" class="cal" @updateDate="date"/>
     <label class="notes">
       <span class="name">备注</span>
       <input type="text" v-model="value" placeholder="点击添加备注">
@@ -11,7 +11,7 @@
         <button @click="inputContent">7</button>
         <button @click="inputContent">8</button>
         <button @click="inputContent">9</button>
-        <button @click="date">今天</button>
+        <button   @click="showCal">{{dateChoose}}</button>
         <button @click="inputContent">4</button>
         <button @click="inputContent">5</button>
         <button @click="inputContent">6</button>
@@ -43,6 +43,7 @@ export default class Keyboard extends Vue {
   output = '';
   value = '';
   seen = false;
+  dateChoose='今天';
 
   inputContent(event: MouseEvent): void {
     const button = (event.target as HTMLButtonElement);
@@ -86,12 +87,19 @@ export default class Keyboard extends Vue {
       this.$emit('update:value', this.value);
       this.$emit('update:value2', this.output);
       this.$emit('submit', this.output);
+      this.$router.back();
+      this.output = '';
+
       // this.output = this.value.toString();
     }
   }
 
-  date(): void {
+  showCal():void{
     this.seen = true;
+  }
+  date(value:string): void {
+    this.dateChoose=value;
+    this.seen=false;
   }
 }
 </script>

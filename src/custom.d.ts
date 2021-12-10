@@ -9,6 +9,7 @@ type RecordItem = {
 type Label = {
   id: string;
   name: string;
+  type: "+" | "-";
 }
 type LabelListModel = {
   data: Label[]
@@ -16,14 +17,4 @@ type LabelListModel = {
   create: (name: string) => 'success' | 'duplicated'
   save: () => void
   remove: (id: string) => void
-}
-
-interface Window {
-  store:{
-    labelList: Label[];
-    createLabel: (name: string) => void;
-    removeLabel: (id: string) => void;
-    recordList: RecordItem[];
-    createRecord: (record: RecordItem) => void;
-  }
 }
