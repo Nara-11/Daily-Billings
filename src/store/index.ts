@@ -6,11 +6,6 @@ import {outputLabelsList, inputLabelList} from '@/constants/labelsList';
 
 Vue.use(Vuex);
 
-type RootState = {
-  recordList: RecordItem[],
-  labelList: Label[],
-  currentLabel?: Label,
-}
 const store = new Vuex.Store({
   state: {
     recordList: [],
@@ -20,7 +15,7 @@ const store = new Vuex.Store({
   mutations: {
     createRecord(state, record) {
       const record2: RecordItem = clone(record);
-      record2.dates = new Date().toLocaleDateString();
+      record2.dates = new Date().toISOString();
       state.recordList.push(record2);
       store.commit('saveRecords');
     },
@@ -42,7 +37,7 @@ const store = new Vuex.Store({
       }
     },
     createLabel(state, config: {name: string, type: "+" | "-"}) {
-      const { name, type } = config
+      const { name, type } = config;
       const names = state.labelList.filter(e => e.type === type).map(item => item.name);
       const id = createId().toString();
       if (names.indexOf(name) >= 0) {

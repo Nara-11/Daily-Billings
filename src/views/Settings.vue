@@ -1,7 +1,7 @@
 <template>
-  <layout>
+  <Layout>
     settings
-  </layout>
+  </Layout>
 </template>
 
 <script lang="ts">

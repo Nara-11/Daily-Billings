@@ -11,7 +11,7 @@ const recordStore = {
   },
   createRecord(record: RecordItem): void {
     const record2 = recordStore.clone(record);
-    record2.dates = (new Date()).toLocaleDateString();
+    record2.dates = new Date().toISOString();
     this.recordList?.push(record2);
     recordStore.saveRecords();
   },

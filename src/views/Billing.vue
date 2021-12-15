@@ -1,11 +1,11 @@
 <template>
-  <layout>
+  <Layout>
     <div>
       本月支出
       <br>
       本月收入
     </div>
-  </layout>
+  </Layout>
 </template>
 
 <script lang="ts">

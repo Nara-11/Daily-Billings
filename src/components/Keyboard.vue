@@ -11,7 +11,7 @@
         <button @click="inputContent">7</button>
         <button @click="inputContent">8</button>
         <button @click="inputContent">9</button>
-        <button   @click="showCal">{{dateChoose}}</button>
+        <button @click="showCal">{{ dateChoose }}</button>
         <button @click="inputContent">4</button>
         <button @click="inputContent">5</button>
         <button @click="inputContent">6</button>
@@ -43,7 +43,7 @@ export default class Keyboard extends Vue {
   output = '';
   value = '';
   seen = false;
-  dateChoose='今天';
+  dateChoose = '今天';
 
   inputContent(event: MouseEvent): void {
     const button = (event.target as HTMLButtonElement);
@@ -84,29 +84,33 @@ export default class Keyboard extends Vue {
       }
       button.innerText = '完成';
     } else {
-      this.$emit('update:value', this.value);
-      this.$emit('update:value2', this.output);
-      this.$emit('submit', this.output);
-      this.$router.back();
-      this.output = '';
-
-      // this.output = this.value.toString();
+      if (this.output === '0' || this.output === '0.0' || this.output === '') {
+        window.alert('请输入金额');
+      } else {
+        this.$emit('update:value', this.value);
+        this.$emit('update:value2', this.output);
+        this.$emit('submit', this.output);
+        this.output = '';
+        this.$router.push('/');
+      }
     }
   }
 
-  showCal():void{
+  showCal(): void {
     this.seen = true;
   }
-  date(value:string): void {
-    this.dateChoose=value;
-    this.seen=false;
+
+  date(value: string): void {
+    this.dateChoose = value;
+    this.seen = false;
   }
 }
 </script>
 
 <style scoped lang="scss">
 @import "~@/assets/style/helper.scss";
-.cal{
+
+.cal {
   flex-grow: 1;
   overflow: auto;
 }

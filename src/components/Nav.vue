@@ -1,7 +1,7 @@
 <template>
   <nav>
     <router-link to="/statistics" class="item" active-class="selected">
-      <Icon name="charts"/>
+      <Icon name="billings"/>
       账单
     </router-link>
     <router-link to="/addBilling" class="item" active-class="selected">
@@ -9,8 +9,8 @@
       记账
     </router-link>
     <router-link to="/settings" class="item" active-class="selected">
-      <Icon name="settings"/>
-      设置
+      <Icon name="charts"/>
+      图表
     </router-link>
   </nav>
 </template>

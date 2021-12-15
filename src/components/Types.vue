@@ -10,6 +10,9 @@
       <router-link to="/" class="cancel">
         <span>取消</span>
       </router-link>
+      <router-link to="/addBilling" class="back">
+        <span>取消</span>
+      </router-link>
     </ul>
   </div>
 </template>
@@ -57,7 +60,7 @@ export default class Types extends Vue {
     border-bottom: 1px solid $color-highlight;
   }
 
-  > .cancel {
+  > .cancel,.back {
     font-size: 20px;
     float: right;
     width: 64px;

@@ -51,7 +51,7 @@ export default {
       days: [],
     }
   },
-  created: function () {  //在vue初始化时调用
+  created: function () {
     this.initData(null);
   },
   methods: {
@@ -74,16 +74,13 @@ export default {
       }
       let str = this.formatDate(this.currentYear, this.currentMonth, this.currentDay);
       this.days.length = 0;
-      // 今天是周日，放在第一行第7个位置，前面6个
-      //初始化本周
       for (let i = this.currentWeek - 1; i >= 0; i--) {
         let d = new Date(str);
         d.setDate(d.getDate() - i);
-        let dayObject = {}; //用一个对象包装Date对象  以便为以后预定功能添加属性
+        let dayObject = {};
         dayObject.day = d;
-        this.days.push(dayObject);//将日期放入data 中的days数组 供页面渲染使用
+        this.days.push(dayObject);
       }
-      //其他周
       for (let i = 1; i <= 35 - this.currentWeek; i++) {
         let d = new Date(str);
         d.setDate(d.getDate() + i);
@@ -93,9 +90,6 @@ export default {
       }
     },
     pickPre: function (year, month) {
-      // setDate(0); 上月最后一天
-      // setDate(-1); 上月倒数第二天
-      // setDate(dx) 参数dx为 上月最后一天的前后dx天
       let d = new Date(this.formatDate(year, month, 1));
       d.setDate(0);
       this.initData(this.formatDate(d.getFullYear(), d.getMonth() + 1, 1));
@@ -108,7 +102,7 @@ export default {
     pickDay: function (year, month, day) {
       if (confirm("是否将日期修改为" + year + "年" + month + "月" + day + "日")) {
         this.$emit('updateDate', month + "." + day);
-        // this.$emit('update:value3', this.formatDate(year, month, day));
+        this.$emit('update:value3', this.formatDate(year, month, day));
       }
     },
     formatDate: function (year, month, day) {

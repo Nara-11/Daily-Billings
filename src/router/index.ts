@@ -11,8 +11,7 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'Statistics',
-    component: Statistics
+    redirect: '/statistics',
   },
   {
     path: '/addBilling',

@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="icons">
-      <li v-for="icon in value" :key="icon" @click="change(icon)"
+      <li v-for="icon in value" :key="icon.id" @click="change(icon)"
           :class="{selected:selectedIcons.indexOf(icon)>=0}">
         <Icon :name="icon.name"/>
         {{ icon.name }}
@@ -21,11 +21,13 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
+
 interface IconType {
   name: string;
   id: number;
-  type: "+" | "-";
+  type: '+' | '-';
 }
+
 @Component
 export default class Icons extends Vue {
   @Prop() value: IconType[] | undefined;
@@ -87,7 +89,8 @@ export default class Icons extends Vue {
     background: lightgrey;
     border: none;
   }
-  .add{
+
+  .add {
     display: block;
     text-align: center;
   }

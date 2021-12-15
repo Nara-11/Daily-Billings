@@ -1,5 +1,11 @@
+type RootState = {
+  recordList: RecordItem[]
+  labelList: Label[]
+  currentLabel?: Label
+}
+
 type RecordItem = {
-  icons: string[]
+  icons: Label[]
   notes: string
   types: string
   amounts: number
@@ -9,8 +15,9 @@ type RecordItem = {
 type Label = {
   id: string;
   name: string;
-  type: "+" | "-";
+  type: '+' | '-';
 }
+
 type LabelListModel = {
   data: Label[]
   fetch: () => Label[]

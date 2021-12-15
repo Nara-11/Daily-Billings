@@ -1,11 +1,6 @@
 <template>
   <div>
-    <div class="bar">
-      <span class="title">编辑标签</span>
-      <router-link to="/addBilling" class="cancel">
-        <span>取消</span>
-      </router-link>
-    </div>
+    <Types class-predix="types" :value.sync="typeChoose"/>
     <ol>
       <li v-for="label in labels" :key="label.id" class="labels">
         <span class="label">
@@ -28,12 +23,16 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
+import Types from '@/components/Types.vue';
 
-@Component
+@Component({
+  components: {Types},
+})
 export default class Labels extends Vue {
+  typeChoose = '-';
 
   get labels(): [] {
-    return this.$store.state.labelList;
+    return this.$store.state.labelList.filter(r => r.type === this.typeChoose);
   }
 
   created(): void {
@@ -42,8 +41,9 @@ export default class Labels extends Vue {
 
   createLabel(): void {
     const name = window.prompt('请输入标签名');
+    const type=this.typeChoose;
     if (name) {
-      this.$store.commit('createLabel', name);
+      this.$store.commit('createLabel', {name, type});
     }
   }
 
@@ -56,30 +56,28 @@ export default class Labels extends Vue {
 <style scoped lang="scss">
 @import "~@/assets/style/helper.scss";
 
-.bar {
-  background: lightgrey;
+::v-deep.types {
+  width: 80%;
+}
+
+::v-deep .cancel {
+  display: none;
+}
+
+.title {
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-  @extend %clearFix;
-  justify-content: space-between;
-  text-align: center;
+  justify-content: center;
+  font-size: 32px;
+  padding: 2px;
+}
 
-  .title {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    font-size: 32px;
-    padding: 2px;
-  }
-
-  > .cancel {
-    font-size: 20px;
-    float: right;
-    width: 64px;
-    padding-top: 10px;
-    padding-right: 10px;
-  }
+.back {
+  font-size: 20px;
+  float: right;
+  width: 64px;
+  padding-top: 10px;
+  padding-right: 10px;
 }
 
 .labels {
@@ -93,9 +91,10 @@ export default class Labels extends Vue {
     justify-content: space-between;
     border-bottom: 1px solid #e6e6e6;
 
-    .left svg{
+    .left svg {
       margin-left: 16px;
     }
+
     .right svg {
       width: 42px;
       height: 42px;

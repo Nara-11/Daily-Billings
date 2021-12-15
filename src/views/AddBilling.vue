@@ -2,7 +2,7 @@
   <div class="addBilling">
     <Types :value.sync="record.types" @update:value="onUpdateTypes"/>
     <div class="icons">
-      <Icons :value.sync="selectedIcons" @update:value="onSelectedIcons"/>
+      <Icons :value="selectedIcons" @update:value="onSelectedIcons"/>
     </div>
     <transition name="fade" enter-active-class="animate__animated animate__slideInUp"
                 leave-active-class="animate_animated animate_slideOutDown">
@@ -77,6 +77,10 @@ export default class AddBilling extends Vue {
 </script>
 
 <style scoped lang="scss">
+::v-deep .back {
+  display: none;
+}
+
 .addBilling {
   display: flex;
   flex-direction: column;
