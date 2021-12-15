@@ -6,7 +6,7 @@
         <h3 class="title">{{ beautify(group.title) }}<span>￥{{ group.total }}</span></h3>
         <ol>
           <li v-for="(item, i) in group.items" :key="i" class="record">
-            <span v-for="icon in item.icons" :key="icon.id">{{ icon.name }}</span>
+            <span v-for="icon in item.icons" :key="icon.id" class="iconName">{{ icon.name }}</span>
             <span class="notes">{{ item.notes }}</span>
             <span>￥{{ item.amounts }}</span>
           </li>
@@ -85,6 +85,7 @@ export default class Statistics extends Vue {
 ::v-deep .cancel {
   display: none;
 }
+
 ::v-deep .back {
   display: none;
 }
@@ -105,12 +106,13 @@ export default class Statistics extends Vue {
 .record {
   @extend %item;
 }
-
+.iconName{
+  min-width: 10%;
+}
 .notes {
-  margin: 0 16px;
-  max-width: 80%;
-  display: inline-block;
-  overflow-wrap: break-word;
+  margin-right: auto;
+  margin-left: 16px;
+  color: #999;
 }
 
 .noResult {

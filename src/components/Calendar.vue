@@ -20,7 +20,7 @@
       <li>日</li>
     </ul>
     <ul class="days">
-      <li v-for="dayObject in days" :key="dayObject.day">
+      <li v-for="dayObject in days" :key="dayObject.day.toString()">
         <span v-if="dayObject.day.getMonth()+1 !== currentMonth" class="other-month">
           {{ dayObject.day.getDate() }}
         </span>
@@ -41,7 +41,6 @@
 /* eslint-disable */
 export default {
   name: 'Calendar',
-  el: '#calendar',
   data() {
     return {
       currentDay: 1,
