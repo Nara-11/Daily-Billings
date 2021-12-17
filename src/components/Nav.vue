@@ -8,7 +8,7 @@
       <Icon name="billing"/>
       记账
     </router-link>
-    <router-link to="/settings" class="item" active-class="selected">
+    <router-link to="/charts" class="item" active-class="selected">
       <Icon name="charts"/>
       图表
     </router-link>

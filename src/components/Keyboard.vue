@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Calendar v-if="seen" class="cal" @updateDate="date"/>
     <label class="notes">
       <span class="name">备注</span>
       <input type="text" v-model="value" placeholder="点击添加备注">
@@ -11,7 +10,7 @@
         <button @click="inputContent">7</button>
         <button @click="inputContent">8</button>
         <button @click="inputContent">9</button>
-        <button @click="showCal">{{ dateChoose }}</button>
+        <input type="date" v-model="dates" class="button">
         <button @click="inputContent">4</button>
         <button @click="inputContent">5</button>
         <button @click="inputContent">6</button>
@@ -34,16 +33,13 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import Calendar from '@/components/Calendar.vue';
 
-@Component({
-  components: {Calendar}
-})
+@Component
 export default class Keyboard extends Vue {
   output = '';
   value = '';
   seen = false;
-  dateChoose = '今天';
+  dates = '';
 
   inputContent(event: MouseEvent): void {
     const button = (event.target as HTMLButtonElement);
@@ -89,20 +85,12 @@ export default class Keyboard extends Vue {
       } else {
         this.$emit('update:value', this.value);
         this.$emit('update:value2', this.output);
+        this.$emit('update:value3', this.dates);
         this.$emit('submit', this.output);
         this.output = '';
         this.$router.push('/');
       }
     }
-  }
-
-  showCal(): void {
-    this.seen = true;
-  }
-
-  date(value: string): void {
-    this.dateChoose = value;
-    this.seen = false;
   }
 }
 </script>
@@ -149,5 +137,19 @@ export default class Keyboard extends Vue {
       border: 1px solid white;
     }
   }
+}
+
+.button {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: lightgrey;
+  border: 1px solid white;
+  width: 25%;
+}
+
+//noinspection CssInvalidPseudoSelector
+input[type=date]::-webkit-datetime-edit-year-field {
+  display: none;
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
   <Layout>
-    settings
+
   </Layout>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'Settings'
+  name: 'Charts'
 };
 </script>
 

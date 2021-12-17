@@ -7,7 +7,7 @@
     <transition name="fade" enter-active-class="animate__animated animate__slideInUp"
                 leave-active-class="animate_animated animate_slideOutDown">
       <Keyboard v-show="showKeyboard" @update:value="onUpdateNotes" @update:value2="onUpdateAmounts"
-                @update:value3="onUpdateDates" @submit="saveRecord"/>
+                :value3.sync="record.dates" @update:value3="onUpdateDates" @submit="saveRecord"/>
     </transition>
   </div>
 </template>
@@ -26,7 +26,7 @@ import 'animate.css';
 })
 export default class AddBilling extends Vue {
   record = {
-    icons: [''], notes: '', types: '-', amounts: 0, dates: ''
+    icons: [''], notes: '', types: '-', amounts: 0, dates: new Date().toISOString()
   };
   showKeyboard = false;
 

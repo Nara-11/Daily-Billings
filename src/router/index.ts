@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
-import Settings from '@/views/Settings.vue';
 import NotFound from '@/views/NotFound.vue';
 import AddBilling from '@/views/AddBilling.vue';
 import Labels from '@/views/Labels.vue';
 import Statistics from '@/views/Statistics.vue';
+import Charts from '@/views/Charts.vue';
 
 Vue.use(VueRouter);
 
@@ -29,9 +29,9 @@ const routes: Array<RouteConfig> = [
     component: Statistics
   },
   {
-    path: '/settings',
-    name: 'Settings',
-    component: Settings
+    path: '/charts',
+    name: 'charts',
+    component:Charts
   },
   {
     path: '*',
