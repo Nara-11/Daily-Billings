@@ -1,22 +1,26 @@
 <template>
-  <Layout>
-    <Types class-predix="types" :value.sync="typeChoose"/>
-    <ol v-if="groupedList.length>0">
-      <li v-for="(group,index) in groupedList" :key="index">
-        <h3 class="title">{{ beautify(group.title) }}<span>￥{{ group.total }}</span></h3>
-        <ol>
-          <li v-for="(item, i) in group.items" :key="i" class="record">
-            <span v-for="icon in item.icons" :key="icon.id" class="iconName">{{ icon.name }}</span>
-            <span class="notes">{{ item.notes }}</span>
-            <span>￥{{ item.amounts }}</span>
+  <div class="page">
+    <Layout>
+      <Types :value.sync="typeChoose"/>
+      <div class="content">
+        <ol v-if="groupedList.length>0">
+          <li v-for="(group,index) in groupedList" :key="index">
+            <h3 class="title">{{ beautify(group.title) }}<span>￥{{ group.total }}</span></h3>
+            <ol>
+              <li v-for="(item, i) in group.items" :key="i" class="record">
+                <span v-for="icon in item.icons" :key="icon.id" class="iconName">{{ icon.name }}</span>
+                <span class="notes">{{ item.notes }}</span>
+                <span>￥{{ item.amounts }}</span>
+              </li>
+            </ol>
           </li>
         </ol>
-      </li>
-    </ol>
-    <div v-else class="noResult">
-      目前没有记录，点击记账开始记录吧
-    </div>
-  </Layout>
+        <div v-else class="noResult">
+          目前没有记录，点击记账开始记录吧
+        </div>
+      </div>
+    </Layout>
+  </div>
 </template>
 
 <script lang="ts">
@@ -106,9 +110,11 @@ export default class Statistics extends Vue {
 .record {
   @extend %item;
 }
-.iconName{
+
+.iconName {
   min-width: 10%;
 }
+
 .notes {
   margin-right: auto;
   margin-left: 16px;
@@ -118,5 +124,16 @@ export default class Statistics extends Vue {
 .noResult {
   padding: 16px;
   text-align: center;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.content {
+  overflow: auto;
+  flex-grow: 1;
 }
 </style>

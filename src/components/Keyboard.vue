@@ -98,11 +98,6 @@ export default class Keyboard extends Vue {
 <style scoped lang="scss">
 @import "~@/assets/style/helper.scss";
 
-.cal {
-  flex-grow: 1;
-  overflow: auto;
-}
-
 .notes {
   font-size: 18px;
   background: lightgrey;

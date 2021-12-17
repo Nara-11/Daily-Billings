@@ -16,7 +16,6 @@ export default {
 <style scoped lang="scss">
 @import "~@/assets/style/helper.scss";
 .layout-wrapper {
-  border: 1px solid $color-highlight;
   display: flex;
   flex-direction: column;
   min-height: 100vh;

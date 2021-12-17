@@ -40,10 +40,13 @@ export default class Labels extends Vue {
   }
 
   createLabel(): void {
-    const name = window.prompt('请输入标签名');
+    const name = window.prompt('请输入不超过四个字的的标签名');
     const type=this.typeChoose;
-    if (name) {
+    if (name.length<=4) {
       this.$store.commit('createLabel', {name, type});
+    }else{
+      window.alert('标签名过长');
+      return
     }
   }
 
