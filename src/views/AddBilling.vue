@@ -26,7 +26,7 @@ import 'animate.css';
 })
 export default class AddBilling extends Vue {
   record = {
-    icons: [''], notes: '', types: '-', amounts: 0, dates: new Date().toISOString()
+    icons: [''], notes: '', types: '-', amounts: 0, dates: new Date().toISOString().split("T")[0]
   };
   showKeyboard = false;
 
