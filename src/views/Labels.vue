@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="labelsSet">
     <Types class-predix="types" :value.sync="typeChoose"/>
-    <ol>
-      <li v-for="label in labels" :key="label.id" class="labels">
+    <ol class="labels">
+      <li v-for="label in labels" :key="label.id">
         <span class="label">
           <span class="left">
-            <Icon :name="label.name"/>
+            <Icon :name="label.svg"/>
             {{ label.name }}
           </span>
           <span class="right">
@@ -14,9 +14,9 @@
         </span>
       </li>
     </ol>
-    <div class="createTag-wrapper">
-      <button @click="createLabel" class="createTag">添加标签</button>
-    </div>
+    <router-link to="/addIcon" class="createTag-wrapper">
+      <button class="createTag">添加标签</button>
+    </router-link>
   </div>
 </template>
 
@@ -39,17 +39,6 @@ export default class Labels extends Vue {
     this.$store.commit('fetchLabels');
   }
 
-  createLabel(): void {
-    const name = window.prompt('请输入不超过四个字的的标签名');
-    const type=this.typeChoose;
-    if (name.length<=4) {
-      this.$store.commit('createLabel', {name, type});
-    }else{
-      window.alert('标签名过长');
-      return
-    }
-  }
-
   remove(id: string): void {
     this.$store.commit('removeLabel', id);
   }
@@ -59,64 +48,60 @@ export default class Labels extends Vue {
 <style scoped lang="scss">
 @import "~@/assets/style/helper.scss";
 
-::v-deep.types {
-  width: 80%;
-}
-
-::v-deep .cancel {
-  display: none;
-}
-
-.title {
-  width: 100%;
+.labelsSet {
   display: flex;
-  justify-content: center;
-  font-size: 32px;
-  padding: 2px;
-}
+  flex-direction: column;
+  height: 100vh;
 
-.back {
-  font-size: 20px;
-  float: right;
-  width: 64px;
-  padding-top: 10px;
-  padding-right: 10px;
-}
-
-.labels {
-  font-size: 20px;
-  padding: 0 16px;
-
-  > .label {
-    min-height: 44px;
+  .title {
+    width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #e6e6e6;
+    justify-content: center;
+    font-size: 32px;
+    padding: 2px;
+  }
 
-    .left svg {
-      margin-left: 16px;
-    }
+  .labels {
+    flex-grow: 1;
+    overflow: auto;
 
-    .right svg {
-      width: 42px;
-      height: 42px;
-      color: rgb(251, 83, 0);
+    > li {
+      font-size: 20px;
+      padding: 0 16px;
+
+      > .label {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #e6e6e6;
+
+        .left svg {
+          margin-left: 16px;
+        }
+
+        .right svg {
+          width: 42px;
+          height: 42px;
+          color: rgb(251, 83, 0);
+        }
+      }
     }
   }
-}
 
-.createTag {
-  background: lightgrey;
-  border-radius: 4px;
-  border: none;
-  height: 40px;
-  padding: 0 16px;
+  .createTag {
+    background: $color-button;
+    border-radius: 4px;
+    border: none;
+    height: 40px;
+    padding: 0 16px;
 
-  &-wrapper {
-    text-align: center;
-    padding: 16px;
-    margin-top: 44-16px;
+    &-wrapper {
+      display: block;
+      text-align: center;
+      padding: 16px;
+      margin-top: 44-16px;
+    }
   }
 }
 </style>

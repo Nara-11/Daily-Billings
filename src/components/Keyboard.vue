@@ -2,7 +2,7 @@
   <div>
     <label class="notes">
       <span class="name">备注</span>
-      <input type="text" v-model="value" placeholder="点击添加备注">
+      <input type="text" v-model="value" placeholder="不超过十个字">
       <span class="output">￥{{ output || '0.00' }}</span>
     </label>
     <div class="numberPad">
@@ -10,7 +10,10 @@
         <button @click="inputContent">7</button>
         <button @click="inputContent">8</button>
         <button @click="inputContent">9</button>
-        <input type="date" v-model="dates" class="button">
+        <div class="date">
+          <input type="date" v-model="dates" class="button" id="date">
+          <label for="date">{{ dateString }}</label>
+        </div>
         <button @click="inputContent">4</button>
         <button @click="inputContent">5</button>
         <button @click="inputContent">6</button>
@@ -39,12 +42,18 @@ export default class Keyboard extends Vue {
   output = '';
   value = '';
   seen = false;
-  dates = '';
+  dates = null;
+
+
+  get dateString() {
+    if (this.dates === null) return '今天';
+    return this.dates.split('-').slice(1, 3).join('/');
+  }
 
   inputContent(event: MouseEvent): void {
     const button = (event.target as HTMLButtonElement);
     const input = (button.textContent as string);
-    if (this.output.length === 10) {return;}
+    if (this.output.length >= 10) {return;}
     if (this.output.indexOf('.') >= 0) {
       if ((this.output.split('.'))[1].length === 2) {return;} else if (input === '.') {return;}
     }
@@ -83,12 +92,17 @@ export default class Keyboard extends Vue {
       if (this.output === '0' || this.output === '0.0' || this.output === '') {
         window.alert('请输入金额');
       } else {
-        this.$emit('update:value', this.value);
-        this.$emit('update:value2', this.output);
-        this.$emit('update:value3', this.dates);
-        this.$emit('submit', this.output);
-        this.output = '';
-        this.$router.push('/');
+        if (this.value.length <= 10) {
+          this.$emit('update:value', this.value);
+          this.$emit('update:value2', this.output);
+          this.$emit('update:value3', this.dates);
+          this.$emit('submit', this.output);
+          this.output = '';
+          this.$router.push('/');
+        } else {
+          window.alert('备注字数超过限制');
+          return;
+        }
       }
     }
   }
@@ -100,14 +114,17 @@ export default class Keyboard extends Vue {
 
 .notes {
   font-size: 18px;
-  background: lightgrey;
+  background: $color-background;
   padding: 0 16px;
   display: flex;
   align-items: center;
 
+  .name {
+    min-width: 36px;
+  }
+
   input {
     height: 56px;
-    width: 50vw;
     flex-grow: 1;
     padding-left: 16px;
     background: transparent;
@@ -117,6 +134,8 @@ export default class Keyboard extends Vue {
   .output {
     font-size: 18px;
     font-family: Consolas, monospace;
+    min-width: 60px;
+    max-width: 120px;
   }
 }
 
@@ -128,23 +147,48 @@ export default class Keyboard extends Vue {
     > button {
       width: 25%;
       height: 64px;
-      background: lightgrey;
+      background: $color-background;
       border: 1px solid white;
+
+      > .icon {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    .date {
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      background: $color-background;
+      border: 1px solid white;
+      width: 25%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        appearance: none;
+        background: transparent;
+        border: none;
+        @media (max-width: 500px) {
+          opacity: 0;
+        }
+      }
     }
   }
 }
 
-.button {
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background: lightgrey;
-  border: 1px solid white;
-  width: 25%;
-}
 
 //noinspection CssInvalidPseudoSelector
-input[type=date]::-webkit-datetime-edit-year-field {
+input[type=date]::-webkit-datetime-edit {
   display: none;
 }
+
 </style>

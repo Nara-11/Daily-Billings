@@ -1,43 +1,49 @@
 <template>
   <div class="page">
-    <Layout>
-      <Types :value.sync="typeChoose"/>
-      <div class="content">
-        <ol v-if="groupedList.length>0">
-          <li v-for="(group,index) in groupedList" :key="index">
-            <h3 class="title">{{ beautify(group.title) }}<span>￥{{ group.total }}</span></h3>
-            <ol>
-              <li v-for="(item, i) in group.items" :key="i" class="record">
-                <span v-for="icon in item.icons" :key="icon.id" class="iconName">{{ icon.name }}</span>
+    <Types :value.sync="typeChoose"/>
+    <div class="content">
+      <ol v-if="groupedList.length>0">
+        <li v-for="(group,index) in groupedList" :key="index">
+          <h3 class="title">{{ beautify(group.title) }}<span>￥{{ group.total }}</span></h3>
+          <ol>
+            <li v-for="(item, i) in group.items" :key="i">
+              <router-link :to="`/delete/${item.index}`" class="record">
+                <span v-for="icon in item.icons" :key="icon.id" class="iconName"><Icon :name="icon.svg"/>{{ icon.name }}</span>
                 <span class="notes">{{ item.notes }}</span>
                 <span>￥{{ item.amounts }}</span>
-              </li>
-            </ol>
-          </li>
-        </ol>
-        <div v-else class="noResult">
-          目前没有记录，点击记账开始记录吧
-        </div>
+              </router-link>
+            </li>
+          </ol>
+        </li>
+      </ol>
+      <div v-else class="noResult">
+        目前没有记录，点击记账开始记录吧
       </div>
-    </Layout>
+    </div>
+    <Nav/>
   </div>
 </template>
 
 <script lang="ts">
 import Types from '@/components/Types.vue';
+import Icon from '@/components/Icon.vue';
+import Nav from '@/components/Nav.vue';
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
 
+// eslint-disable-next-line no-undef
+type Result = { title: string, total?: number, items: RecordItem[] }[];
 @Component({
-  components: {Types},
+  components: {Types, Icon, Nav},
 })
 export default class Statistics extends Vue {
   typeChoose = '-';
 
+  // eslint-disable-next-line no-undef
   get recordList(): RecordItem[] {
-    return (this.$store.state as RootState).recordList;
+    return this.$store.state.recordList;
   }
 
   beautify(string: string): string {
@@ -48,17 +54,15 @@ export default class Statistics extends Vue {
     } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
       return '昨天';
     } else if (day.isSame(now, 'year')) {
-      return day.format('M月D日');
+      return day.format('MM月DD日');
     } else {
-      return day.format('YYYY年M月D日');
+      return day.format('YYYY年MM月DD日');
     }
   }
 
-  get groupedList() {
-    const {recordList} = this;
-    const newList = clone(recordList).filter(r => r.types === this.typeChoose).sort((a, b) => dayjs(b.dates).valueOf() - dayjs(a.dates).valueOf());
+  get groupedList() : Result{
+    const newList = clone(this.recordList).filter(r => r.types === this.typeChoose).sort((a, b) => dayjs(b.dates).valueOf() - dayjs(a.dates).valueOf());
     if (newList.length === 0) {return [];}
-    type Result = { title: string, total?: number, items: RecordItem[] }[];
     const result: Result = [{title: dayjs(newList[0].dates).format('YYYY-MM-DD'), items: [newList[0]]}];
 
     for (let i = 1; i < newList.length; i++) {
@@ -67,7 +71,7 @@ export default class Statistics extends Vue {
       if (dayjs(last.title).isSame(dayjs(current.dates), 'day')) {
         last.items.push(current);
       } else {
-        result.push({title: dayjs(current.dates).format('YYYY-M-D'), items: [current]});
+        result.push({title: dayjs(current.dates).format('YYYY-MM-DD'), items: [current]});
       }
     }
     result.map(group => {
@@ -81,16 +85,13 @@ export default class Statistics extends Vue {
   beforeCreate(): void {
     this.$store.commit('fetchRecords');
   }
-
 }
 </script>
 
 <style scoped lang="scss">
-::v-deep .cancel {
-  display: none;
-}
+@import "~@/assets/style/helper.scss";
 
-::v-deep .back {
+::v-deep .cancel {
   display: none;
 }
 
@@ -104,11 +105,12 @@ export default class Statistics extends Vue {
 
 .title {
   @extend %item;
-  background: #e6e6e6;
+  background: $color-background;
 }
 
 .record {
   @extend %item;
+  border-bottom: 1px solid #e6e6e6;
 }
 
 .iconName {

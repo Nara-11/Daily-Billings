@@ -3,7 +3,7 @@
     <ul class="icons">
       <li v-for="icon in value" :key="icon.id" @click="change(icon)"
           :class="{selected:selectedIcons.indexOf(icon)>=0}">
-        <Icon :name="icon.name"/>
+        <Icon :name="icon.svg"/>
         {{ icon.name }}
       </li>
       <template>
@@ -23,9 +23,10 @@ import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 
 interface IconType {
-  name: string;
   id: number;
+  name: string;
   type: '+' | '-';
+  svg:string;
 }
 
 @Component
@@ -62,7 +63,7 @@ export default class Icons extends Vue {
       width: 64px;
       height: 64px;
       padding: 8px 8px;
-      background: lightgrey;
+      background: $color-background;
     }
 
     &.selected {
@@ -86,7 +87,7 @@ export default class Icons extends Vue {
     width: 64px;
     height: 64px;
     padding: 8px 8px;
-    background: lightgrey;
+    background: $color-background;
     border: none;
   }
 

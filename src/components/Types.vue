@@ -7,12 +7,9 @@
       <li class="item" :class="{selected: value === '+',[classPredix+'-item']:classPredix}" @click="selectType('+')">
         收入
       </li>
-      <router-link to="/" class="cancel">
-        <span>取消</span>
-      </router-link>
-      <router-link to="/addBilling" class="back">
-        <span>取消</span>
-      </router-link>
+      <template>
+        <button class="cancel" @click="back">取消</button>
+      </template>
     </ul>
   </div>
 </template>
@@ -32,6 +29,10 @@ export default class Types extends Vue {
     }
     this.$emit('update:value',type);
   }
+  back():void {
+    this.$router.go(-1);
+  }
+
 }
 </script>
 
@@ -39,10 +40,9 @@ export default class Types extends Vue {
 @import "~@/assets/style/helper.scss";
 
 .types {
-  background: lightgrey;
+  background: $color-background;
   display: flex;
   flex-direction: row;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
   @extend %clearFix;
 
   > .item {
@@ -60,11 +60,13 @@ export default class Types extends Vue {
     border-bottom: 1px solid $color-highlight;
   }
 
-  > .cancel,.back {
-    font-size: 20px;
+  > .cancel {
+    font-size: 16px;
     float: right;
     width: 64px;
-    padding-top: 10px;
+    padding-left: 12px;
+    background: inherit;
+    border: none;
   }
 }
 </style>

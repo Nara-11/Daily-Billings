@@ -5,6 +5,7 @@ type RootState = {
 }
 
 type RecordItem = {
+  index: string;
   icons: Label[]
   notes: string
   types: string
@@ -16,6 +17,7 @@ type Label = {
   id: string;
   name: string;
   type: '+' | '-';
+  svg: string;
 }
 
 type LabelListModel = {

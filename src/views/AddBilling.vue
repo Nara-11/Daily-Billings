@@ -18,11 +18,10 @@ import Types from '@/components/Types.vue';
 import Keyboard from '@/components/Keyboard.vue';
 import Icons from '@/components/Icons.vue';
 import {Component} from 'vue-property-decorator';
-import Labels from '@/views/Labels.vue';
 import 'animate.css';
 
 @Component({
-  components: {Icons, Keyboard, Types, Labels}
+  components: {Icons, Keyboard, Types}
 })
 export default class AddBilling extends Vue {
   record = {
@@ -77,10 +76,6 @@ export default class AddBilling extends Vue {
 </script>
 
 <style scoped lang="scss">
-::v-deep .back {
-  display: none;
-}
-
 .addBilling {
   display: flex;
   flex-direction: column;
@@ -91,5 +86,4 @@ export default class AddBilling extends Vue {
     overflow: auto;
   }
 }
-
 </style>

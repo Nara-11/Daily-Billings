@@ -2,8 +2,7 @@
   <Layout>
     <Types :value.sync="typeChoose"></Types>
     <div class="wrapper" ref="wrapper">
-      <div class="charts" id="figure">
-      </div>
+      <div class="charts" id="figure"></div>
     </div>
   </Layout>
 </template>
@@ -14,11 +13,12 @@ import Vue from 'vue';
 import Layout from '@/components/Layout.vue';
 import echarts from 'echarts';
 import _ from 'lodash';
-import day from 'dayjs';
 import Types from '@/components/Types.vue';
 import clone from '@/lib/clone';
 import dayjs from 'dayjs';
 
+// eslint-disable-next-line no-undef
+type Result = { title: string, total?: number, items: RecordItem[] }[];
 @Component({
   components: {Types, Layout}
 })
@@ -28,6 +28,7 @@ export default class Charts extends Vue {
   mounted(): void {
     const div = this.$refs.wrapper as HTMLDivElement;
     div.scrollLeft = div.scrollWidth;
+    this.$store.commit('fetchRecords')
     this.chartOptions();
   }
 
@@ -36,15 +37,15 @@ export default class Charts extends Vue {
     this.chartOptions();
   }
 
+  // eslint-disable-next-line no-undef
   get recordList(): RecordItem[] {
-    return (this.$store.state as RootState).recordList;
+    return this.$store.state.recordList;
   }
 
-  get groupedList() {
+  get groupedList() :Result{
     const {recordList} = this;
     const newList = clone(recordList).filter(r => r.types === this.typeChoose).sort((a, b) => dayjs(b.dates).valueOf() - dayjs(a.dates).valueOf());
     if (newList.length === 0) {return [];}
-    type Result = { title: string, total?: number, items: RecordItem[] }[];
     const result: Result = [{title: dayjs(newList[0].dates).format('YYYY-MM-DD'), items: [newList[0]]}];
 
     for (let i = 1; i < newList.length; i++) {
@@ -53,7 +54,7 @@ export default class Charts extends Vue {
       if (dayjs(last.title).isSame(dayjs(current.dates), 'day')) {
         last.items.push(current);
       } else {
-        result.push({title: dayjs(current.dates).format('YYYY-M-D'), items: [current]});
+        result.push({title: dayjs(current.dates).format('YYYY-MM-DD'), items: [current]});
       }
     }
     result.map(group => {
@@ -65,11 +66,11 @@ export default class Charts extends Vue {
   }
 
 
-  get kvPairs() {
+  get kvPairs() :{keys:string,values:number}[]{
     const today = new Date();
     const array = [];
     for (let i = 0; i <= 29; i++) {
-      const dates = day(today).subtract(i, 'day').format('YYYY-MM-DD');
+      const dates = dayjs(today).subtract(i, 'day').format('YYYY-MM-DD');
       const find = _.find(this.groupedList, {title: dates});
       array.push({keys: dates, values: find ? find.total : 0});
     }
@@ -114,14 +115,7 @@ export default class Charts extends Vue {
           data: values,
           type: 'line',
           symbolSize: 12,
-          itemStyle: {borderWidth: 1, color: '#lightgrey', borderColor: '#lightgrey'},
-          symbol: 'circle'
-        },
-        {
-          data: [9, 9, 5, 5],
-          type: 'line',
-          symbolSize: 12,
-          itemStyle: {borderWidth: 1, color: '#lightgrey', borderColor: '#lightgrey'},
+          itemStyle: {borderWidth: 1, color: '#89D7BC', borderColor: '#89D7BC'},
           symbol: 'circle'
         }
       ],
