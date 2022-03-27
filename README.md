@@ -1,29 +1,15 @@
-# morney
+# 日常记账
 
-## Project setup
-```
-yarn install
-```
+## 项目介绍
 
-### Compiles and hot-reloads for development
+每日记账是一款本地版的记账应用，也是一款基于Vue、VueRouter、Vuex、TypeScript的单页面应用
+
+## 项目开发
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+## 项目生产
 ```
 yarn build
 ```
-
-### Run your unit tests
-```
-yarn test:unit
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
